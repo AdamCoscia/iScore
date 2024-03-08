@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>iScore | Coscia 2023</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link href="vendors/tabulator/css/tabulator_simple.min.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- APP -->
+    <div id="app" class="flex-col">
+      <!-- HEADER -->
+      <div id="header-wrapper" class="flex-row flex-size-to-content">
+        <div id="header-body-wrapper" class="flex-row flex-fill-remaining">
+          <div class="flex-row cg-12 ai-baseline">
+            <h1 id="header-title">iScore</h1>
+            <h3 id="header-subtitle">Interpreting How Language Models Score Student Summaries</h3>
+          </div>
+          <span id="header-links">&copy; Adam Coscia <time>2023</time></span>
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+      <div id="content-wrapper" class="flex-row flex-fill-remaining">
+        <div id="content-body-wrapper" class="flex-row flex-fill-remaining">
+          <!-- TEXT -->
+          <div id="text-wrapper" class="flex-col" hide="true">
+            <!-- TEXT TITLE -->
+            <div id="text-title-wrapper" class="title-wrapper flex-row flex-size-to-content">
+              <!-- TITLE -->
+              <div class="flex-row cg-12 ai-center">
+                <h2>Assignments</h2>
+              </div>
+
+              <!-- BUTTONS -->
+              <div class="flex-row chart-controls ai-center">
+                <button id="data-query-button" class="button-primary">Evaluate</button>
+              </div>
+            </div>
+
+            <!-- TEXT BODY -->
+            <div id="text-body-wrapper" class="flex-col rg-12">
+              <!-- TEXT CONTROLS -->
+              <div id="text-controls-wrapper" class="flex-col rg-4">
+                <div id="model-checkboxes-wrapper" class="flex-col rg-4">
+                  <div id="model-checkboxes-header" class="flex-row ai-center">
+                    <b>LLMs to inference:</b>
+                    <span id="model-checkboxes-hide" class="icon-bars"></span>
+                  </div>
+                  <div id="model-checkboxes-container" class="flex-col rg-4"></div>
+                </div>
+              </div>
+
+              <!-- EXAMPLES -->
+              <div id="text-examples" class="flex-col rg-4">
+                <b>Try an example!</b>
+                <select id="examples-select"></select>
+              </div>
+
+              <!-- SOURCE -->
+              <div id="source-wrapper" class="flex-col rg-4">
+                <div id="source-input-title" class="flex-row cg-12">
+                  <div class="flex-row chart-title-control">
+                    <h3>Source</h3>
+                    <a class="info-link"></a>
+                  </div>
+                  <div class="flex-row ai-baseline">
+                    <input id="source-file-upload" type="file" accept="text/plain" style="display: none" hidden />
+                    <input id="source-upload-button" class="button-secondary" type="button" value="Upload" />
+                  </div>
+                </div>
+                <textarea
+                  id="source-input"
+                  class="source-input frame"
+                  placeholder="Type or copy/paste a source..."
+                ></textarea>
+                <!-- <div class="flex-col rg-4">
+                  <b>Keyphrases:</b>
+                  <div id="source-keyphrases" class="flex-col">...</div>
+                </div> -->
+              </div>
+
+              <!-- SUMMARY -->
+              <div id="summary-wrapper" class="flex-col rg-4">
+                <div id="summary-input-title" class="flex-row cg-12">
+                  <div class="flex-row chart-title-control">
+                    <h3>Summaries</h3>
+                    <a class="info-link"></a>
+                  </div>
+                  <div class="flex-row ai-baseline">
+                    <input id="summary-file-upload" type="file" accept="text/plain" style="display: none" hidden />
+                    <input id="summary-upload-button" class="button-secondary" type="button" value="Upload" />
+                  </div>
+                </div>
+                <div id="summary-input-body" class="flex-col rg-12">
+                  <div id="summary-input-container" class="flex-col rg-12">
+                    <div id="summary-input-wrapper-1" class="summary-input-wrapper flex-row cg-4" data-id="1">
+                      <textarea
+                        id="summary-input-1"
+                        class="summary-input frame"
+                        placeholder="Type or copy/paste a summary..."
+                      ></textarea>
+                      <div class="flex-col rg-4">
+                        <div class="summary-input-options flex-row">
+                          <b>ID:&nbsp;1</b>
+                        </div>
+                        <div class="flex-col rg-4">
+                          <b>✏️ Perturb:</b>
+                          <div class="flex-row">
+                            <input
+                              type="checkbox"
+                              id="grammar-perturbation-checkbox-1"
+                              name="grammar-perturbation-checkbox-1"
+                            />
+                            <label for="grammar-perturbation-checkbox-1">grammar?</label>
+                          </div>
+                          <div class="flex-row">
+                            <input
+                              type="checkbox"
+                              id="sentence-perturbation-checkbox-1"
+                              name="sentence-perturbation-checkbox-1"
+                            />
+                            <label for="sentence-perturbation-checkbox-1">sentences?</label>
+                          </div>
+                          <div class="flex-row">
+                            <input
+                              type="checkbox"
+                              id="word-perturbation-checkbox-1"
+                              name="word-perturbation-checkbox-1"
+                            />
+                            <label for="word-perturbation-checkbox-1">words?</label>
+                          </div>
+                          <div class="flex-row">
+                            <input
+                              type="checkbox"
+                              id="token-perturbation-checkbox-1"
+                              name="token-perturbation-checkbox-1"
+                            />
+                            <label for="token-perturbation-checkbox-1">tokens?</label>
+                          </div>
+                        </div>
+                        <div class="flex-col rg-4">
+                          <b>👀 Attention:</b>
+                          <div class="flex-row">
+                            <input type="checkbox" id="get-attention-checkbox-1" name="get-attention-checkbox-1" />
+                            <label for="get-attention-checkbox-1">tokens?</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="summary-add-button" class="button-primary flex-row cg-4">
+                    <span class="icon">+</span>
+                    <span class="text">Add Summary</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODEL -->
+          <div id="model-wrapper" class="flex-col">
+            <div id="model-body-wrapper" class="flex-col rg-12">
+              <!-- OUTPUTS -->
+              <div id="model-outputs-wrapper" class="flex-col rg-12">
+                <!-- OUTPUTS TITLE -->
+                <div id="outputs-title-wrapper" class="title-wrapper flex-row flex-size-to-content">
+                  <!-- TITLE -->
+                  <div class="flex-row cg-12 ai-center">
+                    <h2>Scores Dashboard</h2>
+                  </div>
+
+                  <!-- TOGGLES -->
+                  <div class="flex-row chart-controls ai-center">
+                    <b>Show:</b>
+                    <div class="flex-row cg-4 ai-center">
+                      <div class="flex-row">
+                        <input
+                          class="toggle-switch"
+                          type="checkbox"
+                          id="show-scores-checkbox"
+                          name="show-scores-checkbox"
+                          checked
+                        />
+                        <label class="toggle-switch-label" for="show-scores-checkbox"></label>
+                      </div>
+                      <span>History</span>
+                    </div>
+                    <div class="flex-row cg-4 ai-center">
+                      <div class="flex-row">
+                        <input
+                          class="toggle-switch"
+                          type="checkbox"
+                          id="show-distributions-checkbox"
+                          name="show-distributions-checkbox"
+                          checked
+                        />
+                        <label class="toggle-switch-label" for="show-distributions-checkbox"></label>
+                      </div>
+                      <span>Distributions</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- OUTPUTS BODY -->
+                <div id="outputs-body-wrapper" class="flex-row cg-12 rg-12 flex-fill-remaining">
+                  <!-- HISTORY -->
+                  <div id="scores-wrapper" class="chart-wrapper flex-col">
+                    <div class="flex-row chart-controls-wrapper">
+                      <div class="flex-row chart-title-control">
+                        <h3>History</h3>
+                        <a class="info-link"></a>
+                      </div>
+                    </div>
+                    <div id="scores" class="frame">
+                      <div id="scores-table"></div>
+                    </div>
+                  </div>
+
+                  <!-- DISTRIBUTIONS -->
+                  <div id="distributions-wrapper" class="flex-col rg-4">
+                    <div class="flex-row chart-controls-wrapper">
+                      <div class="flex-row chart-title-control">
+                        <h3>Distributions</h3>
+                        <a class="info-link"></a>
+                      </div>
+                      <div class="flex-row chart-controls">
+                        <div class="flex-row chart-title-control">
+                          <b>X:</b>
+                          <select id="distributions-x-select"></select>
+                        </div>
+                        <div class="flex-row chart-title-control">
+                          <b>Y:</b>
+                          <select id="distributions-y-select"></select>
+                        </div>
+                        <div class="flex-row chart-title-control">
+                          <button id="distributions-reset-button" class="button-secondary">Reset</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="distributions-frame-wrapper" class="frame">
+                      <svg id="distributions" preserveAspectRatio="xMinYMin meet">
+                        <defs>
+                          <marker
+                            id="arrow"
+                            viewBox="0 0 10 10"
+                            refX="16"
+                            refY="5"
+                            markerWidth="4"
+                            markerHeight="4"
+                            orient="auto-start-reverse"
+                          >
+                            <path d="M 0 0 L 10 5 L 0 10 z" />
+                          </marker>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ANALYSIS -->
+              <div id="model-analysis-wrapper" class="flex-col rg-12">
+                <!-- ANALYSIS TITLE -->
+                <div id="analysis-title-wrapper" class="title-wrapper flex-row flex-size-to-content">
+                  <!-- TITLE -->
+                  <div class="flex-row cg-12 ai-center">
+                    <h2>Model Analysis</h2>
+                  </div>
+
+                  <!-- SUMMARY SELECT -->
+                  <div class="flex-row cg-4 ai-center">
+                    <b>Summary:</b>
+                    <select id="summary-select" disabled></select>
+                  </div>
+
+                  <!-- TOGGLES -->
+                  <div class="flex-row chart-controls ai-center">
+                    <b>Show:</b>
+                    <div class="flex-row cg-4 ai-center">
+                      <div class="flex-row">
+                        <input
+                          class="toggle-switch"
+                          type="checkbox"
+                          id="show-perturbation-checkbox"
+                          name="show-perturbation-checkbox"
+                          checked
+                        />
+                        <label class="toggle-switch-label" for="show-perturbation-checkbox"></label>
+                      </div>
+                      <span>Input Perturbation</span>
+                    </div>
+                    <div class="flex-row cg-4 ai-center">
+                      <div class="flex-row">
+                        <input
+                          class="toggle-switch"
+                          type="checkbox"
+                          id="show-attention-checkbox"
+                          name="show-attention-checkbox"
+                          checked
+                        />
+                        <label class="toggle-switch-label" for="show-attention-checkbox"></label>
+                      </div>
+                      <span>Token Attention</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ANALYSIS BODY -->
+                <div id="analysis-body-wrapper" class="flex-col rg-12">
+                  <!-- PERTURBATION -->
+                  <div id="perturbation-wrapper" class="chart-wrapper flex-col">
+                    <div class="flex-row chart-controls-wrapper">
+                      <div class="flex-row chart-title-control">
+                        <h3>✏️ Input Perturbation</h3>
+                        <a class="info-link"></a>
+                      </div>
+                      <div class="flex-row chart-controls">
+                        <div class="flex-row chart-title-control">
+                          <b>Model:</b>
+                          <select id="perturbation-model-select" disabled></select>
+                        </div>
+                        <div class="flex-row chart-title-control">
+                          <b>Perturb:</b>
+                          <select id="perturbation-span-select" disabled>
+                            <option value="grammar">grammar (fix)</option>
+                            <option value="sentence">sentences (remove)</option>
+                            <option value="word">words (replace)</option>
+                            <option value="token">tokens (mask)</option>
+                          </select>
+                        </div>
+                        <div class="flex-row chart-title-control">
+                          <b>Color by:</b>
+                          <select id="perturbation-colorby-select" disabled>
+                            <option value="diff_true">Diff (true)</option>
+                            <option value="diff_abs">Diff (abs)</option>
+                            <!-- <option value="diff_sum_norm">Diff (sum norm)</option> -->
+                            <!-- <option value="diff_max_norm">Diff (max norm)</option> -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="perturbation" class="frame"></div>
+                  </div>
+
+                  <!-- ATTENTION -->
+                  <div id="attention-wrapper" class="chart-wrapper flex-col">
+                    <div class="flex-row chart-controls-wrapper">
+                      <div class="flex-row chart-title-control">
+                        <h3>👀 Token Attention</h3>
+                        <a class="info-link"></a>
+                      </div>
+                      <div class="flex-row chart-controls">
+                        <div class="flex-row chart-title-control">
+                          <b>Window:</b>
+                          <span id="attention-window-span">...</span>
+                        </div>
+                        <div class="flex-row chart-title-control">
+                          <b>Model:</b>
+                          <select id="attention-model-select" disabled></select>
+                        </div>
+                        <div class="flex-row chart-title-control">
+                          <div class="flex-row cg-4 ai-center">
+                            <div class="flex-row">
+                              <input
+                                class="toggle-switch"
+                                type="checkbox"
+                                id="attention-heatmaps-checkbox"
+                                name="attention-heatmaps-checkbox"
+                                checked
+                                disabled
+                              />
+                              <label class="toggle-switch-label" for="attention-heatmaps-checkbox"></label>
+                            </div>
+                            <span>Heatmaps</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="attention-layer-sliders" class="flex-col rg-12">
+                      <div id="attention-layerhead-sliders" class="flex-row cg-12">
+                        <div class="flex-col" style="width: 50%">
+                          <svg id="attention-layer-overview"></svg>
+                          <div class="flex-row" style="align-items: center">
+                            <input
+                              type="range"
+                              id="attention-layer-slider"
+                              name="attention-layer-slider"
+                              min="1"
+                              max="1"
+                              value="1"
+                              step="1"
+                              list="attention-layer-ticks"
+                              disabled
+                            />
+                            <label for="attention-layer-slider">Layer</label>
+                          </div>
+                          <div id="attention-layer-ticks-wrapper">
+                            <datalist id="attention-layer-ticks" class="flex-row"></datalist>
+                          </div>
+                        </div>
+                        <div class="flex-col" style="width: 50%">
+                          <svg id="attention-head-overview"></svg>
+                          <div class="flex-row" style="align-items: center">
+                            <input
+                              type="range"
+                              id="attention-head-slider"
+                              name="attention-head-slider"
+                              min="1"
+                              max="1"
+                              value="1"
+                              step="1"
+                              list="attention-head-ticks"
+                              disabled
+                            />
+                            <label for="attention-head-slider">Head</label>
+                          </div>
+                          <div id="attention-layer-ticks-wrapper">
+                            <datalist id="attention-head-ticks" class="flex-row"></datalist>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex-col">
+                        <svg id="attention-token-overview"></svg>
+                        <div class="flex-row" style="align-items: center">
+                          <input
+                            type="range"
+                            id="attention-token-slider"
+                            name="attention-token-slider"
+                            min="0"
+                            max="1"
+                            value="1"
+                            step="1"
+                            disabled
+                          />
+                          <label for="attention-token-slider">Token</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="attention" class="frame"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOOLTIPS -->
+      <div id="charts-tooltip"></div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="vendors/d3.v7.min.js"></script>
+    <script type="text/javascript" src="vendors/tabulator/js/tabulator.min.js"></script>
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
