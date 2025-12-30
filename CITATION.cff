@@ -25,7 +25,7 @@ doi: 10.1145/3640543.3645142
 date-released: 2024-03-08
 url: "https://adamcoscia.com/papers/knowledgevis/"
 preferred-citation:
-  type: inproceedings
+  type: conference-paper
   authors:
   - family-names: "Coscia"
     given-names: "Adam"
