@@ -1,0 +1,59 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite it as below."
+authors:
+- family-names: "Coscia"
+  given-names: "Adam"
+  orcid: "https://orcid.org/0000-0002-0429-9295"
+- family-names: "Holmes"
+  given-names: "Langdon"
+  orcid: "https://orcid.org/0000-0003-4338-4609"
+- family-names: "Morris"
+  given-names: "Wesley"
+  orcid: "https://orcid.org/0000-0001-6316-6479"
+- family-names: "Choi"
+  given-names: "Joon Suh"
+  orcid: "https://orcid.org/0000-0002-7732-0366"
+- family-names: "Crossley"
+  given-names: "Scott"
+  orcid: "https://orcid.org/0000-0002-5148-0273"
+- family-names: "Endert"
+  given-names: "Alex"
+  orcid: "https://orcid.org/0000-0002-6914-610X"
+title: "iScore: Visual Analytics for Interpreting How Language Models Automatically Score Summaries"
+version: 0.1.0
+doi: 10.1145/3640543.3645142
+date-released: 2024-03-08
+url: "https://adamcoscia.com/papers/knowledgevis/"
+preferred-citation:
+  type: inproceedings
+  authors:
+  - family-names: "Coscia"
+    given-names: "Adam"
+    orcid: "https://orcid.org/0000-0002-0429-9295"
+  - family-names: "Holmes"
+    given-names: "Langdon"
+    orcid: "https://orcid.org/0000-0003-4338-4609"
+  - family-names: "Morris"
+    given-names: "Wesley"
+    orcid: "https://orcid.org/0000-0001-6316-6479"
+  - family-names: "Choi"
+    given-names: "Joon Suh"
+    orcid: "https://orcid.org/0000-0002-7732-0366"
+  - family-names: "Crossley"
+    given-names: "Scott"
+    orcid: "https://orcid.org/0000-0002-5148-0273"
+  - family-names: "Endert"
+    given-names: "Alex"
+    orcid: "https://orcid.org/0000-0002-6914-610X"
+  doi: "10.1145/3640543.3645142"
+  booktitle: "Proceedings of the 29th International Conference on Intelligent User Interfaces"
+  start: 787
+  end: 802
+  title: "iScore: Visual Analytics for Interpreting How Language Models Automatically Score Summaries"
+  isbn: 9798400705083
+  publisher: "Association for Computing Machinery"
+  address: "New York, NY, USA"
+  numpages: 16
+  location: "Greenville, SC, USA"
+  series: "IUI '24"
+  year: 2024

@@ -178,15 +178,17 @@ To learn more about iScore, please read our [research paper][paper] (published a
 
 ```bibtex
 @inproceedings{Coscia:2024:iScore,
-  author = {Coscia, Adam and Holmes, Langdon and Morris, Wesley and Choi, Joon S. and Crossley, Scott and Endert, Alex},
+  author = {Coscia, Adam and Holmes, Langdon and Morris, Wesley and Choi, Joon Suh and Crossley, Scott and Endert, Alex},
   title = {iScore: Visual Analytics for Interpreting How Language Models Automatically Score Summaries},
   year = {2024},
-  isbn = {979-8-4007-0508-3/24/03},
+  isbn = {9798400705083},
   publisher = {Association for Computing Machinery},
   address = {New York, NY, USA},
   url = {https://doi.org/10.1145/3640543.3645142},
   doi = {10.1145/3640543.3645142},
-  booktitle = {Proceedings of the 2024 IUI Conference on Intelligent User Interfaces},
+  booktitle = {Proceedings of the 29th International Conference on Intelligent User Interfaces},
+  pages = {787–802},
+  numpages = {16},
   location = {Greenville, SC, USA},
   series = {IUI '24}
 }
