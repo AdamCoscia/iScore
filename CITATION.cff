@@ -46,6 +46,7 @@ preferred-citation:
     given-names: "Alex"
     orcid: "https://orcid.org/0000-0002-6914-610X"
   doi: "10.1145/3640543.3645142"
+  url: "https://doi.org/10.1145/3640543.3645142"
   collection-title: "Proceedings of the 29th International Conference on Intelligent User Interfaces"
   collection-type: proceedings
   conference:
