@@ -23,7 +23,7 @@ title: "iScore: Visual Analytics for Interpreting How Language Models Automatica
 version: 0.1.0
 doi: 10.1145/3640543.3645142
 date-released: 2024-03-08
-url: "https://adamcoscia.com/papers/knowledgevis/"
+url: "https://adamcoscia.com/papers/iscore/"
 preferred-citation:
   type: conference-paper
   authors:
